@@ -13,9 +13,7 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({ filters, onFiltersChange,
   const quickSearchDebounced = useDebounce(quickSearch, 300);
 
   useEffect(() => {
-    if (quickSearchDebounced) {
-      onFiltersChange({ quickSearch: quickSearchDebounced });
-    }
+    onFiltersChange({ quickSearch: quickSearchDebounced });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [quickSearchDebounced]);
 
@@ -60,8 +58,8 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({ filters, onFiltersChange,
       </div>
       <div>
         <label>Price Range</label>
-        <input type="number" name="minPrice" placeholder="Min" value={filters.minPrice || 0} onChange={handleChange} />
-        <input type="number" name="maxPrice" placeholder="Max" value={filters.maxPrice || 0} onChange={handleChange} />
+        <input type="number" name="minPrice" placeholder="Min" value={filters.minPrice || ''} onChange={handleChange} />
+        <input type="number" name="maxPrice" placeholder="Max" value={filters.maxPrice || ''} onChange={handleChange} />
       </div>
       <button onClick={handleReset}> Reset </button>
     </aside>
