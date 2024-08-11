@@ -41,8 +41,8 @@ export const fetchProducts = async (params: Filters = {}, pageInfo: PageInfo): P
     };
     const filteredParams = filterQueryParams(queryParamsObject);
     const queryParams = new URLSearchParams(filteredParams as Record<string, string>).toString();
-    // const response = await fetch(`https://json-server-vercel-virid-psi.vercel.app/api/products?_end=10`);
-    const response = await fetch(`http://localhost:3000/api/products?${queryParams}`);
+    const response = await fetch(`https://json-server-vercel-virid-psi.vercel.app/api/products?${queryParams}`);
+    // const response = await fetch(`http://localhost:3000/api/products?${queryParams}`);
     
     if (!response.ok) {
       throw new Error('Failed to fetch products');

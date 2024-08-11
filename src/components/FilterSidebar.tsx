@@ -61,13 +61,11 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({ filters, onFiltersChange,
         max={1000}
         defaultValue={[filters.minPrice || 0, filters.maxPrice || 0]}
         onChange={(nextValues: number | number[]): void => {
-          console.log('Change:', nextValues);
           const [ min, max] = nextValues as number[];
           setSliderMin(min);
           setSliderMax(max);
         }}
         onChangeComplete={(v: number | number[]): void => {
-          console.log('AfterChange:', v);
           const [ min, max ] = v as number[];
           onFiltersChange({ minPrice: min, maxPrice: max });
         }}
