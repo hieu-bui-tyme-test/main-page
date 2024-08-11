@@ -15,13 +15,18 @@ export type Filters = {
   priceSortOrder?: number;
 }
 
+export type PageInfo = {
+  page?: number;
+  perPage?: number;
+}
+
 function filterQueryParams(params: { [key: string]: unknown }): { [key: string]: unknown } {
   return Object.fromEntries(
     Object.entries(params).filter(([, value]) => value !== undefined)
   );
 }
 
-export const fetchProducts = async (params: Filters = {}): Promise<Product[]> => {
+export const fetchProducts = async (params: Filters = {}, pageInfo: PageInfo): Promise<Product[]> => {
   try {
     // _like, _lte, _gte... are json-server syntax
     const queryParamsObject = {
@@ -29,9 +34,9 @@ export const fetchProducts = async (params: Filters = {}): Promise<Product[]> =>
       'price_lte': params.maxPrice,
       'price_gte': params.minPrice,
       'category_like': params.category,
-      '_end': 10,
       '_sort': 'price',
-      '_order': params.priceSortOrder
+      '_order': params.priceSortOrder,
+      '_page': pageInfo.page
     };
     const filteredParams = filterQueryParams(queryParamsObject);
     const queryParams = new URLSearchParams(filteredParams as Record<string, string>).toString();
