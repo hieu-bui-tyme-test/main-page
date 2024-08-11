@@ -20,7 +20,7 @@ export const fetchProducts = async (filters: Filters = {}): Promise<Product[]> =
     const queryParams = new URLSearchParams(filters as Record<string, string>).toString();
     // const response = await fetch(`https://api.example.com/products?${queryParams}`);
     // const response = await fetch(`https://json-server-vercel-virid-psi.vercel.app/api/products?_end=10`);
-    const response = await fetch(`http://localhost:3000/api/products?_end=10`);
+    const response = await fetch(`http://localhost:3000/api/products?_end=10&${queryParams}`);
     
     if (!response.ok) {
       throw new Error('Failed to fetch products');
