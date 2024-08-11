@@ -13,6 +13,7 @@ export interface Filters {
   minPrice?: number;
   maxPrice?: number;
   searchQuery?: string;
+  quickSearch?: string;
 }
 
 export const fetchProducts = async (filters: Filters = {}): Promise<Product[]> => {

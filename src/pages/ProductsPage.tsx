@@ -1,37 +1,23 @@
-import { useReducer } from "react";
 import { useProducts } from "../hooks/useProducts";
 import { Filters } from "../services/productService";
 import ProductList from "../components/ProductList";
 import FilterSidebar from "../components/FilterSidebar";
-import { filtersReducer } from "../reducers/filterReducer";
+import { useFilters } from "../reducers/filterReducer";
 
-const initialFilters: Filters = {};
+const initialFilters: Filters = {
+  quickSearch: ''
+};
 
 function ProdductPage() {
-  // const [filters, setFilters] = useState<Filters>({});
-  const [filters, dispatch] = useReducer(filtersReducer, initialFilters);
+  const { filters, updateFilters, resetFilters } = useFilters(initialFilters);
 
   const { products, loading, error } = useProducts(filters);
 
-  // const handleFilterChange = (newFilters: Filters) => {
-  //   setFilters(newFilters);
-  // };
-
   const handleFilterChange = (filters: Filters) => {
-    // Logic to dispatch the appropriate actions based on the filter type
-    if (filters.category) {
-      dispatch({ type: 'SET_CATEGORY', payload: filters.category });
-    }
-    if (filters.minPrice !== undefined) {
-      dispatch({ type: 'SET_MIN_PRICE', payload: filters.minPrice });
-    }
-    if (filters.maxPrice !== undefined) {
-      dispatch({ type: 'SET_MAX_PRICE', payload: filters.maxPrice });
-    }
-    if (filters.searchQuery) {
-      dispatch({ type: 'SET_SEARCH_QUERY', payload: filters.searchQuery });
-    }
+    updateFilters(filters);
   };
+
+  const handleFilterReset = () => resetFilters();
 
   return (
     <>
@@ -79,7 +65,7 @@ function ProdductPage() {
             </div>
           </nav> */}
           <aside className="flex-shrink-0 hidden w-64 bg-white border-r dark:border-primary-darker dark:bg-darker md:block p-6">
-            <FilterSidebar onFilterChange={handleFilterChange} />
+            <FilterSidebar filters={filters} onFiltersChange={handleFilterChange} onFiltersReset={handleFilterReset}/>
             {/* <form action="#" className="space-y-6">
               <input className="w-full px-4 py-2 border rounded-md dark:bg-darker dark:border-gray-700 focus:outline-none focus:ring focus:ring-primary-100 dark:focus:ring-primary-darker" type="text" name="username" placeholder="Username" required />
             </form> */}
