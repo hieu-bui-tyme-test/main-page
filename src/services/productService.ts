@@ -12,7 +12,7 @@ export type Filters = {
   minPrice?: number;
   maxPrice?: number;
   quickSearch?: string;
-  priceSortOrder?: number;
+  priceSortOrder?: string;
 }
 
 export type PageInfo = {

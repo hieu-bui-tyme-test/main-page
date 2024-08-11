@@ -6,13 +6,6 @@ type ProductCardProps = {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
-  // return (
-  //   <div className="product-card">
-  //     <img src={product.image} alt={product.name} />
-  //     <h3>{product.name}</h3>
-  //     <p>{product.price}</p>
-  //   </div>
-  // );
   return (
     <div className="w-full md:w-1/3 xl:w-1/4 p-6 flex flex-col">
       <a href="#">

@@ -1,6 +1,9 @@
 import React, { useState, ChangeEvent, useEffect } from 'react';
 import { Filters } from '../services/productService';
 import useDebounce from '../hooks/useDebounce';
+import Input from './ui/Input';
+import SearchInput from './ui/SearchInput';
+import Select from './ui/Select';
 
 type FilterSidebarProps = {
   filters: Filters,
@@ -39,32 +42,31 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({ filters, onFiltersChange,
 
   return (
     <aside className="filter-sidebar">
-      <h2>Filters</h2>
-      <div>
-        <input className="w-full px-4 py-2 border rounded-md dark:bg-darker dark:border-gray-700 focus:outline-none focus:ring focus:ring-primary-100 dark:focus:ring-primary-darker"
-         type="text" name="quickSearch" value={quickSearch || ''} placeholder="Quick Search" required onChange={handleChange} />
+      <h4 className="font-semibold mb-4">Filter</h4>
+
+      <SearchInput name="quickSearch" id="quickSearch" placeholder="Quick Search..." aria-label="Quick Search" value={quickSearch || ''} onChange={handleChange} />
+
+      <Select name="category" id="category" aria-label="Category" value={filters.category || ''} onChange={handleChange} >
+        <option value="">All</option>
+        <option value="electronics">Electronics</option>
+        <option value="clothing">Clothing</option>
+      </Select>
+
+      <Input type="number" name="minPrice" id="minPrice" placeholder="Min" aria-label="Min Price" value={filters.minPrice || ''} onChange={handleChange}  />
+
+      <Input type="number" name="maxPrice" id="maxPrice" placeholder="Max" aria-label="Max Price" value={filters.maxPrice || ''} onChange={handleChange}  />
+
+      <Select name="priceSortOrder" id="priceSortOrder" aria-label="Sort" value={filters.priceSortOrder || ''} onChange={handleChange} >
+        <option value="ASC">Low to high</option>
+        <option value="DESC">High to low</option>
+      </Select>
+
+      <div className="mt-6">
+        <button className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded text-sm" onClick={handleReset}>
+          Reset
+        </button>
       </div>
-      <div>
-        <label>Category</label>
-        <select name="category" value={filters.category || ''} onChange={handleChange}>
-          <option value="">All</option>
-          <option value="electronics">Electronics</option>
-          <option value="clothing">Clothing</option>
-        </select>
-      </div>
-      <div>
-        <label>Price Range</label>
-        <input type="number" name="minPrice" placeholder="Min" value={filters.minPrice || ''} onChange={handleChange} />
-        <input type="number" name="maxPrice" placeholder="Max" value={filters.maxPrice || ''} onChange={handleChange} />
-      </div>
-      <div>
-        <label>Price Sort</label>
-        <select name="priceSortOrder" value={filters.priceSortOrder || 'ASC'} onChange={handleChange}>
-          <option value="ASC">Low to high</option>
-          <option value="DESC">High to low</option>
-        </select>
-      </div>
-      <button onClick={handleReset}> Reset </button>
+
     </aside>
   );
 };
