@@ -6,7 +6,7 @@ import FilterSidebar from "../components/FilterSidebar";
 import { useFilters } from "../reducers/filtersReducer";
 import { usePageInfo } from "../reducers/pageInfoReducer";
 
-const initialFilters: Filters = { priceSortOrder: 'ASC' };
+const initialFilters: Filters = { priceSortOrder: 'ASC', minPrice: 200, maxPrice: 500 };
 const initialPageInfo: PageInfo = { page: 1 };
 
 const AUTO_RELOAD_TIMEOUT = 60000;

@@ -4,6 +4,7 @@ import useDebounce from '../hooks/useDebounce';
 import Input from './ui/Input';
 import SearchInput from './ui/SearchInput';
 import Select from './ui/Select';
+import MySlider from './ui/Slider';
 
 type FilterSidebarProps = {
   filters: Filters,
@@ -13,6 +14,8 @@ type FilterSidebarProps = {
 
 const FilterSidebar: React.FC<FilterSidebarProps> = ({ filters, onFiltersChange, onFiltersReset }) => {
   const [quickSearch, setQuickSearch] = useState<string | undefined>(filters.quickSearch);
+  const [sliderMin, setSliderMin] = useState<number | undefined>(filters.minPrice);
+  const [sliderMax, setSliderMax] = useState<number | undefined>(filters.maxPrice);
   const quickSearchDebounced = useDebounce(quickSearch, 300);
 
   useEffect(() => {
@@ -52,9 +55,27 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({ filters, onFiltersChange,
         <option value="clothing">Clothing</option>
       </Select>
 
-      <Input type="number" name="minPrice" id="minPrice" placeholder="Min" aria-label="Min Price" value={filters.minPrice || ''} onChange={handleChange}  />
+      <MySlider
+        range
+        min={0}
+        max={1000}
+        defaultValue={[filters.minPrice || 0, filters.maxPrice || 0]}
+        onChange={(nextValues: number | number[]): void => {
+          console.log('Change:', nextValues);
+          const [ min, max] = nextValues as number[];
+          setSliderMin(min);
+          setSliderMax(max);
+        }}
+        onChangeComplete={(v: number | number[]): void => {
+          console.log('AfterChange:', v);
+          const [ min, max ] = v as number[];
+          onFiltersChange({ minPrice: min, maxPrice: max });
+        }}
+      />
 
-      <Input type="number" name="maxPrice" id="maxPrice" placeholder="Max" aria-label="Max Price" value={filters.maxPrice || ''} onChange={handleChange}  />
+      <Input type="number" name="sliderMin" id="sliderMin" placeholder="Min" aria-label="Min Price" value={sliderMin} disabled />
+
+      <Input type="number" name="sliderMax" id="sliderMax" placeholder="Max" aria-label="Max Price" value={sliderMax} disabled  />
 
       <Select name="priceSortOrder" id="priceSortOrder" aria-label="Sort" value={filters.priceSortOrder || ''} onChange={handleChange} >
         <option value="ASC">Low to high</option>
