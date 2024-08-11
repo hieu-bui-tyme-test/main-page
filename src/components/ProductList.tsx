@@ -2,7 +2,7 @@ import React from 'react';
 import ProductCard from './ProductCard';
 import { Product } from '../services/productService';
 
-interface ProductListProps {
+type ProductListProps = {
   products: Product[];
 }
 

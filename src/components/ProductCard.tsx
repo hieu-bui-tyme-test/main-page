@@ -1,7 +1,7 @@
 import React from 'react';
 import { Product } from '../services/productService';
 
-interface ProductCardProps {
+type ProductCardProps = {
   product: Product;
 }
 

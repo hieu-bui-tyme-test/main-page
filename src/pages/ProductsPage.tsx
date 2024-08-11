@@ -4,9 +4,7 @@ import ProductList from "../components/ProductList";
 import FilterSidebar from "../components/FilterSidebar";
 import { useFilters } from "../reducers/filterReducer";
 
-const initialFilters: Filters = {
-  quickSearch: ''
-};
+const initialFilters: Filters = {};
 
 function ProdductPage() {
   const { filters, updateFilters, resetFilters } = useFilters(initialFilters);

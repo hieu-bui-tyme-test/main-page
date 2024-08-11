@@ -1,25 +1,35 @@
 
-export interface Product {
+export type Product = {
   id: number;
   name: string;
   price: number;
   imageUrl: string;
   category: string;
-  // Add other fields as needed
 }
 
-export interface Filters {
+export type Filters = {
   category?: string;
   minPrice?: number;
   maxPrice?: number;
-  searchQuery?: string;
   quickSearch?: string;
 }
 
-export const fetchProducts = async (filters: Filters = {}): Promise<Product[]> => {
+function filterQueryParams(params: { [key: string]: unknown }): { [key: string]: unknown } {
+  return Object.fromEntries(
+    Object.entries(params).filter(([, value]) => value !== undefined)
+  );
+}
+
+export const fetchProducts = async (params: Filters = {}): Promise<Product[]> => {
   try {
-    const queryParams = new URLSearchParams(filters as Record<string, string>).toString();
-    // const response = await fetch(`https://api.example.com/products?${queryParams}`);
+    const queryParamsObject = {
+      'name_like': params.quickSearch,
+      'price_lte': params.maxPrice,
+      'price_gte': params.minPrice,
+      'category_like': params.category
+    };
+    const filteredParams = filterQueryParams(queryParamsObject);
+    const queryParams = new URLSearchParams(filteredParams as Record<string, string>).toString();
     // const response = await fetch(`https://json-server-vercel-virid-psi.vercel.app/api/products?_end=10`);
     const response = await fetch(`http://localhost:3000/api/products?_end=10&${queryParams}`);
     
