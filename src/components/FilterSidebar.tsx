@@ -24,14 +24,8 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({ filters, onFiltersChange,
       case 'quickSearch':
         setQuickSearch(value);
         break;
-      case 'category':
-        onFiltersChange({ category: value });
-        break;
-      case 'minPrice':
-      case 'maxPrice':
-        onFiltersChange({ [name]: Number(value) });
-        break;
       default:
+        onFiltersChange({ [name]: value });
         break;
     }
   };
@@ -60,6 +54,13 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({ filters, onFiltersChange,
         <label>Price Range</label>
         <input type="number" name="minPrice" placeholder="Min" value={filters.minPrice || ''} onChange={handleChange} />
         <input type="number" name="maxPrice" placeholder="Max" value={filters.maxPrice || ''} onChange={handleChange} />
+      </div>
+      <div>
+        <label>Price Sort</label>
+        <select name="priceSortOrder" value={filters.priceSortOrder || 'ASC'} onChange={handleChange}>
+          <option value="ASC">Low to high</option>
+          <option value="DESC">High to low</option>
+        </select>
       </div>
       <button onClick={handleReset}> Reset </button>
     </aside>
