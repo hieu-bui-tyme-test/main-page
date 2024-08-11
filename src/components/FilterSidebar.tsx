@@ -9,11 +9,13 @@ type FilterSidebarProps = {
 }
 
 const FilterSidebar: React.FC<FilterSidebarProps> = ({ filters, onFiltersChange, onFiltersReset }) => {
-  const [quickSearch, setQuickSearch] = useState<string>(filters.quickSearch || '');
+  const [quickSearch, setQuickSearch] = useState<string | undefined>(filters.quickSearch);
   const quickSearchDebounced = useDebounce(quickSearch, 300);
 
   useEffect(() => {
-    onFiltersChange({ quickSearch: quickSearchDebounced });
+    if (typeof quickSearchDebounced !== 'undefined') {
+      onFiltersChange({ quickSearch: quickSearchDebounced });
+    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [quickSearchDebounced]);
 
@@ -40,7 +42,7 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({ filters, onFiltersChange,
       <h2>Filters</h2>
       <div>
         <input className="w-full px-4 py-2 border rounded-md dark:bg-darker dark:border-gray-700 focus:outline-none focus:ring focus:ring-primary-100 dark:focus:ring-primary-darker"
-         type="text" name="quickSearch" value={quickSearch} placeholder="Quick Search" required onChange={handleChange} />
+         type="text" name="quickSearch" value={quickSearch || ''} placeholder="Quick Search" required onChange={handleChange} />
       </div>
       <div>
         <label>Category</label>

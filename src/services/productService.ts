@@ -36,7 +36,8 @@ export const fetchProducts = async (params: Filters = {}, pageInfo: PageInfo): P
       'category_like': params.category,
       '_sort': 'price',
       '_order': params.priceSortOrder,
-      '_page': pageInfo.page
+      '_page': pageInfo.page,
+      '_limit': pageInfo.perPage
     };
     const filteredParams = filterQueryParams(queryParamsObject);
     const queryParams = new URLSearchParams(filteredParams as Record<string, string>).toString();
