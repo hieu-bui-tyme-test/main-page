@@ -6,20 +6,23 @@ import { useFilters } from "../reducers/filtersReducer";
 import { usePageInfo } from "../reducers/pageInfoReducer";
 
 const initialFilters: Filters = {};
-const initialPageInfo: PageInfo = { page: 1, perPage: 20 };
+const initialPageInfo: PageInfo = { page: 1 };
 
 function ProdductPage() {
   const { filters, updateFilters, resetFilters } = useFilters(initialFilters);
   const { pageInfo, nextPage, resetPage } = usePageInfo(initialPageInfo);
 
-  const { products, hasMore } = useProducts(filters, pageInfo);
+  const { products, loading, hasMore } = useProducts(filters, pageInfo);
 
   const handleFilterChange = (filters: Filters) => {
     updateFilters(filters);
     resetPage();
   };
 
-  const handleFilterReset = () => resetFilters();
+  const handleFilterReset = () => {
+    resetFilters();
+    resetPage();
+  };
 
   return (
     <>
@@ -69,8 +72,13 @@ function ProdductPage() {
           <aside className="flex-shrink-0 hidden w-64 bg-white border-r dark:border-primary-darker dark:bg-darker md:block p-6">
             <FilterSidebar filters={filters} onFiltersChange={handleFilterChange} onFiltersReset={handleFilterReset}/>
           </aside>
-          <ProductList products={products} />
-          { hasMore && <button onClick={nextPage}>Load more</button>}
+          <div className="flex flex-col flex-1">
+            <ProductList products={products} />
+            { hasMore && !loading && <div className="flex flex-col">
+              <button onClick={nextPage}>Load more</button>
+            </div>}
+          </div>
+          
         </div>
       </section>
     </>
