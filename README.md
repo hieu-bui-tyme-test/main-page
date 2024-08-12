@@ -1,50 +1,14 @@
-# React + TypeScript + Vite
+# Hieu Bui - Filter & Search Function
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Preview
+View demo at https://hieu-bui-tyme-test.github.io/main-page/
 
-Currently, two official plugins are available:
+<img width="1358" alt="Screenshot 2024-08-12 at 08 53 53" src="https://github.com/user-attachments/assets/1ff9482b-e0cd-447f-9e57-19baa3f4a251">
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## API Server
+Github Repo: https://github.com/hieu-bui-tyme-test/json-server-vercel
 
-## Expanding the ESLint configuration
+Server: https://json-server-vercel-virid-psi.vercel.app
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+## Personal Information
+Contact me at hugobui.ui@gmail.com
