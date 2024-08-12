@@ -3,7 +3,7 @@ import { Filters } from '../services/productService';
 
 type FiltersState = Filters;
 
-type FiltersAction =
+export type FiltersAction =
   | { type: 'SET_FILTERS'; payload: Filters }
   | { type: 'RESET_FILTERS' };
 
